@@ -1,4 +1,5 @@
 import org.apache.spark.{SparkConf, SparkContext}
+import org.specs2.mutable.Specification
 
 object SparkExample extends App {
   override def main(args: Array[String]): Unit = {
@@ -21,3 +22,4 @@ object SparkExample extends App {
 
   }
 }
+
