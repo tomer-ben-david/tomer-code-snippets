@@ -1,19 +1,21 @@
 import org.apache.spark.{SparkConf, SparkContext}
 
-object SparkDFAndSQL extends App {
+object SparkGMBDataSet extends App {
 
   override def main(args: Array[String]): Unit = {
-//Notebook:2D49GSQ8M,5
-//http://localhost:8080/#/notebook/2D49GSQ8M
-
     val conf = new SparkConf().setAppName("parse my book").setMaster("local[*]")
     val sc = new SparkContext(conf)
 
 
-//Paragraph:20180121-123618_1890114047,4
-//Paragraph:20180121-123601_48725871,3
-//spark: org.apache.spark.sql.SparkSession = org.apache.spark.sql.SparkSession@1f9b003d
-val spark = org.apache.spark.sql.SparkSession.builder().appName("someapp").getOrCreate()
+//Notebook:2D6MA58FK,2
+//http://localhost:8080/#/notebook/2D6MA58FK
+
+    val spark = org.apache.spark.sql.SparkSession.builder().appName("someapp").getOrCreate()
+//Paragraph:20180127-180413_389214480,1
+    val gmbText = spark.read.text("file:///Users/tomer.bendavid/Downloads/gmb-2.2.0/data/p00/d0018/*.tags")
+    gmbText.foreach(line => println(line.toString()))
+
+
     val rdd = sc.textFile("file:///Users/tomer.bendavid/dev/spark-data/donation") // https://bit.ly/1Aoywaq extract and leave only block_...csv
     val rddWithoutHeader = rdd.filter(!_.contains("id_d1"))
     println(rddWithoutHeader.take(10).foreach(println))
