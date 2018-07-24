@@ -8,10 +8,10 @@ import java.io.StringReader;
 import java.util.LinkedList;
 import java.util.List;
 
-public class StandfordNLP {
+public class StanfordNLP {
     public static void main(String[] args) throws Exception {
-        StandfordNLP standfordNLP = new StandfordNLP();
-        standfordNLP.sentenceSplitter();
+        StanfordNLP stanfordNLP = new StanfordNLP();
+        stanfordNLP.sentenceSplitter();
     }
 
     public void sentenceSplitter() {
