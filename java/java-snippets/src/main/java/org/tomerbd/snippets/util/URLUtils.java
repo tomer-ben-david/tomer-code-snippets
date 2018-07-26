@@ -1,5 +1,7 @@
 package org.tomerbd.snippets.util;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -7,6 +9,7 @@ import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 
+@Named
 public class URLUtils {
     public static void main(String[] args) throws Exception {
         new URLUtils().urlToFile("http://opennlp.sourceforge.net/models-1.5/da-token.bin", "/home/itamar/tmp/da-token.bin");
