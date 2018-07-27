@@ -11,10 +11,7 @@ import org.tomerbd.snippets.util.URLUtils;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.StringReader;
+import java.io.*;
 
 @Configuration
 @ComponentScan
@@ -23,6 +20,7 @@ public class OpenNLPMain {
     @Named
     public static class OpenNLP {
         @Inject private URLUtils urlUtils;
+        @Inject private NLPConfig nlpConfig;
 
 
         public static File getModelDir(){
@@ -38,15 +36,18 @@ public class OpenNLPMain {
             for (String token : tokens) {
                 System.out.println("token: " + token);
             }
-        }    }
+        }
+
+        public void downloadModel() throws IOException {
+            urlUtils.urlToFile(nlpConfig.getModelBaseURL() + "/da-token.bin", nlpConfig.getTargetLocalModelDir() + "/da-token.bin");
+        }
+    }
 
 
     public static void main(String[] args) throws Exception {
         ApplicationContext ctx = new AnnotationConfigApplicationContext("org.tomerbd");
         OpenNLP openNLP = ctx.getBean(OpenNLP.class);
-        openNLP.urlUtils.urlToFile("http://opennlp.sourceforge.net/models-1.5/da-token.bin", "/home/itamar/tmp/da-token.bin");
-        System.out.println(openNLP.getModelDir());
-
+        openNLP.downloadModel();
     }
 
 }
