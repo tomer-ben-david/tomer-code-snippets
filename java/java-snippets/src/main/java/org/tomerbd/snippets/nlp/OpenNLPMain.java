@@ -39,7 +39,23 @@ public class OpenNLPMain {
         }
 
         public void downloadModel() throws IOException {
-            urlUtils.urlToFile(nlpConfig.getModelBaseURL() + "/da-token.bin", nlpConfig.getTargetLocalModelDir() + "/da-token.bin");
+            urlUtils.urlToFile(nlpConfig.getModelBaseURL() + "/" + nlpConfig.getTokenizerENModelName(), nlpConfig.getTargetLocalModelDir() + "/" + nlpConfig.getTokenizerENModelName());
+        }
+
+        public void runTokenizer() throws IOException {
+            String paragraph = "this is some paragraph.  and another one.";
+            try (
+                    InputStream modelInputStream = new FileInputStream(nlpConfig.getTokenzierENModelFilePath());
+
+                    ) {
+                TokenizerModel tokenizerModel = new TokenizerModel(modelInputStream);
+                Tokenizer tokenzier = new TokenizerME(tokenizerModel);
+                String[] tokens = tokenzier.tokenize(paragraph);
+                for (String token : tokens) {
+                    System.out.println("Found token: " + token);
+                }
+
+            }
         }
     }
 
@@ -48,6 +64,7 @@ public class OpenNLPMain {
         ApplicationContext ctx = new AnnotationConfigApplicationContext("org.tomerbd");
         OpenNLP openNLP = ctx.getBean(OpenNLP.class);
         openNLP.downloadModel();
+        openNLP.runTokenizer();
     }
 
 }
